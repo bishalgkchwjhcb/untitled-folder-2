@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendance System - Registration</title>
+    <link href="https://fonts.cdnjs.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="plant-container">
+                <div class="plant leaf leaf-1"></div>
+                <div class="plant leaf leaf-2"></div>
+                <div class="plant vine vine-1"></div>
+                <div class="plant vine vine-2"></div>
+            </div>
+            
+            <div class="content">
+                <h1>Student Registration</h1>
+                <form id="registrationForm" action="{{ url_for('auth.register') }}" method="POST" enctype="multipart/form-data">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <div class="input-group">
+                        <input type="text" name="full_name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="student_id" placeholder="Student ID" required>
+                    </div>
+                    <select class="department-select" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="BCA">BCA</option>
+                    </select>
+                    <div class="subject-list">
+                        <h3>6th Semester Subjects</h3>
+                        <div class="subject-item">MATH - Mathematics</div>
+                        <div class="subject-item">CG - Computer Graphics</div>
+                        <div class="subject-item">IWP - Internet and Web Programming</div>
+                        <div class="subject-item">CC - Cloud Computing</div>
+                    </div>
+                    <label class="face-upload-label">
+                        <input type="file" name="face_image" class="face-upload" accept="image/*" required>
+                        Upload Photo for Face Recognition
+                    </label>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="Create Password" required>
+                    </div>
+                    <button type="submit" class="login-button">Register</button>
+                    <a href="{{ url_for('auth.google_login') }}" class="google-login-button">
+                        <img src="{{ url_for('static', filename='images/google-icon.png') }}" alt="Google" width="20" height="20">
+                        Continue with Google
+                    </a>
+                </form>
+                <div class="register-text">
+                    Already registered? <a href="{{ url_for('auth.login') }}">Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+</body>
+</html>
